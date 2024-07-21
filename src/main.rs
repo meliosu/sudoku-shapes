@@ -7,6 +7,7 @@ use crossterm::{
     style::{Color, ContentStyle, Print, PrintStyledContent, StyledContent, Stylize},
     terminal::{self, EnterAlternateScreen, LeaveAlternateScreen},
 };
+use rand::Rng;
 
 fn main() -> std::io::Result<()> {
     std::panic::set_hook(Box::new(|info| {
@@ -184,7 +185,9 @@ impl Piece {
         Self {
             x: 0,
             y: 0,
-            shape: std::array::from_fn(|_| std::array::from_fn(|_| rand::random())),
+            shape: std::array::from_fn(|_| {
+                std::array::from_fn(|_| rand::thread_rng().gen_ratio(1, 3))
+            }),
         }
     }
 
